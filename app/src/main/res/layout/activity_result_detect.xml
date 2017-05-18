@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0sp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <ProgressBar
+            android:id="@+id/pb_loading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/iv_detect_result"
+            android:layout_width="0sp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/test_lena"
+            android:visibility="gone"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_detect_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="检测结果:图片已被篡改,篡改区域已在上图标出"
+        android:textColor="#000"
+        android:gravity="center"
+        android:visibility="gone"/>
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="保存已恢复图像"
+        android:textColor="#fff"
+        android:layout_margin="16sp"
+        android:background="@color/colorPrimaryDark"
+        android:visibility="gone"/>
+</LinearLayout>
