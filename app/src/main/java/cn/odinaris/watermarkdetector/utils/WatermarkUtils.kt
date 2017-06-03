@@ -119,6 +119,7 @@ object WatermarkUtils {
      * **/
     private fun embedSingleChannel(pixel: IntArray, d1: Int, d2: Int): IntArray {
         val newPixel = IntArray(4)
+        for(i in 0..3){ newPixel[i]=pixel[i] }
         for(p1 in pixel[0]-1..pixel[0]+1){
             for(p2 in pixel[1]-1..pixel[1]+1){
                 val i1 = p1 % B
@@ -130,15 +131,17 @@ object WatermarkUtils {
                         val s2 = p2 - pixel[1] + 1
                         for(q1 in pixel[2]-1..pixel[2]+1){
                             for(q2 in pixel[3]-1..pixel[3]+1){
-                                val j1 = q1 % B
-                                val j2 = q2 % B
-                                val j3 = (q2 + 1) % B
-                                if (M3[j1][j2] == s1 && M3[j1][j3] == s2) {
-                                    newPixel[0] = p1
-                                    newPixel[1] = p2
-                                    newPixel[2] = q1
-                                    newPixel[3] = q2
-                                    return newPixel
+                                if(q1 in 0..255 && q2 in 0..255){
+                                    val j1 = q1 % B
+                                    val j2 = q2 % B
+                                    val j3 = (q2 + 1) % B
+                                    if (M3[j1][j2] == s1 && M3[j1][j3] == s2) {
+                                        newPixel[0] = p1
+                                        newPixel[1] = p2
+                                        newPixel[2] = q1
+                                        newPixel[3] = q2
+                                        return newPixel
+                                    }
                                 }
                             }
                         }
@@ -165,8 +168,8 @@ object WatermarkUtils {
                     newBmp.setPixel(i,j,0)
                     newBmp.setPixel(i+1,j,0)
                 }else{
-                    newBmp.setPixel(i,j,results.pixel[0])
-                    newBmp.setPixel(i+1,j,results.pixel[1])
+                    newBmp.setPixel(i,j,Color.WHITE)
+                    newBmp.setPixel(i+1,j,Color.WHITE)
                 }
                 if(flag == 1) flag = 0 else flag = 1
             }
@@ -332,10 +335,12 @@ object WatermarkUtils {
             if (bmpList[0].compress(Bitmap.CompressFormat.PNG, 100, out1)) {
                 out1.flush()
                 out1.close()
+                Log.e("SaveOk1","保存成功")
             }
             if (bmpList[1].compress(Bitmap.CompressFormat.PNG, 100, out2)) {
                 out2.flush()
                 out2.close()
+                Log.e("SaveOk2","保存成功")
             }
         } catch (e: FileNotFoundException) {
             e.printStackTrace()
